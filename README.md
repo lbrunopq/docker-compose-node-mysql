@@ -9,5 +9,5 @@ docker-compose up -d
 ## Inserir e listar dados da tabela "people"
 
 ```
-http://localhost?name=NomeAqui
+http://localhost:8080?name=NomeAqui
 ```
