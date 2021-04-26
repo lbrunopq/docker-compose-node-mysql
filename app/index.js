@@ -4,10 +4,10 @@ const port = 3000
 const mysql = require('mysql')
 
 const config = {
-  host: 'db',
-  user: 'root',
-  password: 'mysql',
-  database: 'challenge',
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_ROOT_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
 }
 
 const createTable = async (connection) => {
