@@ -1,6 +1,6 @@
 # docker-node-mysql
 
-## Docker up
+## Executar
 
 ```
 docker-compose up -d
