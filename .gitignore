@@ -1,4 +1,4 @@
-mysql-data/
+dbdata/
 node_modules/
 .DS_Store
 ._.DS_Store

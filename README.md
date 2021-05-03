@@ -1,4 +1,4 @@
-# docker-node-mysql
+# docker-compose-node-mysql
 
 ## Executar
 
@@ -6,8 +6,8 @@
 docker-compose up -d
 ```
 
-## Inserir e listar dados da tabela "people"
+## Listar dados
 
 ```
-http://localhost:8080?name=NomeAqui
+http://localhost:8000
 ```

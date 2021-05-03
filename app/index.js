@@ -10,31 +10,9 @@ const config = {
   database: process.env.MYSQL_DATABASE,
 }
 
-const createTable = async (connection) => {
-  return new Promise((resolve, reject) => {
-    const sql =
-      'CREATE TABLE IF NOT EXISTS people (id int auto_increment primary key, name varchar(255));'
-    connection.query(sql, (error, results, fields) => {
-      if (error) return reject(error)
-      console.log(`Created "people" table`)
-      resolve(results)
-    })
-  })
-}
-
-const showData = async (connection) => {
+const getData = async (connection) => {
   return new Promise((resolve, reject) => {
     const sql = 'SELECT * FROM people'
-    connection.query(sql, (error, results, fields) => {
-      if (error) return reject(error)
-      resolve(results)
-    })
-  })
-}
-
-const insert = async (connection, name) => {
-  return new Promise((resolve, reject) => {
-    const sql = `INSERT INTO people(name) VALUES('${name}')`
     connection.query(sql, (error, results, fields) => {
       if (error) return reject(error)
       resolve(results)
@@ -54,16 +32,10 @@ app.get('/', async (req, res) => {
   const connection = mysql.createConnection(config)
 
   try {
-    const { name } = req.query
+    const rows = await getData(connection)
+    const content = html(rows)
 
-    if (!name || name.length === 0) {
-      throw new Error('name is required')
-    }
-
-    await insert(connection, name)
-    const rows = await showData(connection)
-
-    res.send(html(rows))
+    res.send(content)
   } catch (error) {
     console.log(error)
     res.status(500).send(error)
@@ -73,8 +45,6 @@ app.get('/', async (req, res) => {
 })
 
 const start = async () => {
-  await createTable(mysql.createConnection(config))
-
   app.listen(port, () => {
     console.log(`Server running on port ${port}`)
   })
